@@ -3,8 +3,8 @@
 set -e
 
 echo "Build Docker"
-docker build -t gcr.io/${PROJECT_NAME}/elt-marketplace-api:$TRAVIS_COMMIT --build-arg DATABASE=stage .
-docker tag gcr.io/${PROJECT_NAME}/elt-marketplace-api:$TRAVIS_COMMIT gcr.io/${PROJECT_NAME}/elt-marketplace-api:latest
+docker build -t gcr.io/${PROJECT_NAME}/elt-delivery-api:$TRAVIS_COMMIT --build-arg DATABASE=stage .
+docker tag gcr.io/${PROJECT_NAME}/elt-delivery-api:$TRAVIS_COMMIT gcr.io/${PROJECT_NAME}/elt-delivery-api:latest
 
 echo "Authenticate Google Cloud Engine"
 echo $GCLOUD_SERVICE_KEY
@@ -18,13 +18,13 @@ gcloud --quiet config set compute/zone ${CLOUDSDK_COMPUTE_ZONE}
 gcloud --quiet container clusters get-credentials $CLUSTER_NAME
 
 echo "Push Docker Image"
-gcloud docker -- push gcr.io/${PROJECT_NAME}/elt-marketplace-api
+gcloud docker -- push gcr.io/${PROJECT_NAME}/elt-delivery-api
 
-yes | gcloud beta container images add-tag gcr.io/${PROJECT_NAME}/elt-marketplace-api:$TRAVIS_COMMIT gcr.io/${PROJECT_NAME}/elt-marketplace-api:latest
+yes | gcloud beta container images add-tag gcr.io/${PROJECT_NAME}/elt-delivery-api:$TRAVIS_COMMIT gcr.io/${PROJECT_NAME}/elt-delivery-api:latest
 
 echo "Configure Kubernetes"
 kubectl config view
 kubectl config current-context
 
 echo "Deploy"
-kubectl set image deployment/elt-marketplace-api elt-marketplace-api=gcr.io/${PROJECT_NAME}/elt-marketplace-api:$TRAVIS_COMMIT
+kubectl set image deployment/elt-delivery-api elt-delivery-api=gcr.io/${PROJECT_NAME}/elt-delivery-api:$TRAVIS_COMMIT

@@ -69,4 +69,4 @@ $ curl http://localhost:1323
 
 ## Stage
 
-[stage](http://104.154.205.37/)
+[Stage](http://35.193.179.122:1323)
