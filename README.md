@@ -6,6 +6,10 @@
 [Dep](https://github.com/golang/dep#dep)
 [Docker](https://docs.docker.com/engine/installation/)
 
+### API SPEC
+
+[API Spec](./docs/API-SPEC.md)
+
 ## Development
 
 `cd` into <gopath>/src/github/effortless-technologies clone repo:

@@ -37,7 +37,7 @@ install:
 
 # TODO; implement test coverage check
 script:
-  - echo "skip tests"
+  - go test ./... -v
   - goreporter -p ./ -r ./reports -e -f text
 
 before_deploy:
