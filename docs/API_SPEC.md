@@ -128,3 +128,84 @@ directly above.
     }
 }
 ```
+
+## GET/deliveries/:delivery_id
+
+This endpoint is get a specific delivery with an delivery id.
+
+ex:
+
+```
+$ curl http://localhost:1323/deliveries/:delivery_id
+```
+
+#### Response
+```
+{
+    "kind": {string},
+    "id": {string},
+    "created": {string},
+    "updated": {string},
+    "status": {string},
+    "expires": {string},
+    "complete": {bool},
+    "pickup_eta": {string},
+    "dropoff_eta": {string},
+    "dropoff_deadline": {string},
+    "quote_id": {string},
+    "fee": {int},
+    "currency": {string},
+    "manifest": {
+        "reference": {string},
+        "description" : {string},
+    },
+    "dropoff_identifier": {string},
+    "pickup": {
+        "name": {string},
+        "phone_number": {string},
+        "address:: {string},
+        "detailed_address": {
+            "street_address_1": {string},
+            "street_address_2": {string},
+            "city": {string},
+            "state": {string},
+            "zip_code": {string},
+            "country": {string},
+        },
+        "notes": {string},
+        "location": {
+            "lat": {float64},
+            "lng": {float64}
+        }
+    },
+    "dropoff": {
+        "name": {string},
+        "phone_number": {string},
+        "address:: {string},
+        "detailed_address": {
+            "street_address_1": {string},
+            "street_address_2": {string},
+            "city": {string},
+            "state": {string},
+            "zip_code": {string},
+            "country": {string},
+        },
+        "notes": {string},
+        "location": {
+            "lat": {float64},
+            "lng": {float64}
+        }
+    },
+    "courier": {
+        "name": {string},
+        "rating": {string},
+        "vehicle_type": {string},
+        "phone_number": {string},
+        "location": {
+            "lat": {float64},
+            "lng": {float64}
+        }
+        "img_href": {string}
+    }
+}
+```

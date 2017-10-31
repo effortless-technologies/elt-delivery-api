@@ -44,11 +44,24 @@ func CreateDelivery(c echo.Context) error {
 	}
 	params.QuoteId = quote_id
 
-
 	response, err := clients.CreateDelivery(params)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 	}
 
 	return c.JSON(http.StatusCreated, response)
+}
+
+func GetDelivery(c echo.Context) error {
+
+	// TODO: refactor lack of required body var to return proper error instead of 500
+
+	id := c.Param("delivery_id")
+
+	response, err := clients.GetDelivery(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusAccepted, response)
 }

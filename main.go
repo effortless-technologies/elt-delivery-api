@@ -18,6 +18,7 @@ func main() {
 	// Route => handler
 	e.GET("/deliveries/quote", server.GetDeliveryQuote)
 	e.POST("/deliveries/:quote_id", server.CreateDelivery)
+	e.GET("/deliveries/:delivery_id", server.GetDelivery)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))

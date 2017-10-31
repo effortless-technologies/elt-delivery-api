@@ -99,3 +99,27 @@ func CreateDelivery(params *CreateDeliveryParams) (*models.Delivery, error) {
 
 	return d, nil
 }
+
+func GetDelivery(id string) (*models.Delivery, error) {
+
+	postmates_base := makeBaseUrl()
+
+	uri := "/v1/customers/cus_LSo5Dq0t8ppZFF/deliveries/" + id
+
+	req, err := postmates_base.New().Get(uri).Request()
+	if err != nil {
+		return nil, err
+	}
+
+	response := new(models.DeliveryParse)
+
+	_, err = postmates_base.Do(req, &response, err)
+	if err != nil {
+		return nil, err
+	}
+
+	d := new(models.Delivery)
+	d.Parse(response)
+
+	return d, nil
+}

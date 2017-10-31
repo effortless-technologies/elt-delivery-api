@@ -71,6 +71,12 @@ $ curl http://localhost:1323
 
 ## Testing
 
+To run tests locally, use the following command
+
+```
+go test ./... -v
+```
+
 ## Stage
 
 [Stage](http://35.193.179.122:1323)
