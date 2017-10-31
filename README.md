@@ -8,7 +8,7 @@
 
 ### API SPEC
 
-[API Spec](./docs/API-SPEC.md)
+[API Spec](./docs/API_SPEC.md)
 
 ## Development
 

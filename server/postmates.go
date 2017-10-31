@@ -32,3 +32,23 @@ func GetDeliveryQuote(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, response)
 }
+
+func CreateDelivery(c echo.Context) error {
+
+	// TODO: refactor lack of required body var to return 400 instead of 500
+
+	quote_id := c.Param("quote_id")
+	params := new(clients.CreateDeliveryParams)
+	if err := c.Bind(&params); err != nil {
+		c.JSON(http.StatusBadRequest, params)
+	}
+	params.QuoteId = quote_id
+
+
+	response, err := clients.CreateDelivery(params)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusCreated, response)
+}

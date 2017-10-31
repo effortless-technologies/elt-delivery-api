@@ -1,8 +1,6 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/effortless-technologies/elt-delivery-api/server"
 
 	"github.com/labstack/echo"
@@ -18,11 +16,8 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Route => handler
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, Tyler!\n")
-	})
-
-	e.GET("/delivery-quote", server.GetDeliveryQuote)
+	e.GET("/deliveries/quote", server.GetDeliveryQuote)
+	e.POST("/deliveries/:quote_id", server.CreateDelivery)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
