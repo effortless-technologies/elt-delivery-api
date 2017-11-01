@@ -6,6 +6,10 @@
 [Dep](https://github.com/golang/dep#dep)
 [Docker](https://docs.docker.com/engine/installation/)
 
+### API SPEC
+
+[API Spec](./docs/API_SPEC.md)
+
 ## Development
 
 `cd` into <gopath>/src/github/effortless-technologies clone repo:
@@ -66,6 +70,12 @@ $ curl http://localhost:1323
 ```
 
 ## Testing
+
+To run tests locally, use the following command
+
+```
+go test ./... -v
+```
 
 ## Stage
 
