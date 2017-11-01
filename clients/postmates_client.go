@@ -42,14 +42,14 @@ func GetDeliveryQuote(
 		DropoffAddress: dropoff_address,
 	}
 
-	response := &models.Quote{}
+	uri := "/v1/customers/cus_LSo5Dq0t8ppZFF/delivery_quotes"
 
-	req, err := postmates_base.New().Post(
-		"/v1/customers/cus_LSo5Dq0t8ppZFF/delivery_quotes").
-		BodyForm(params).Request()
+	req, err := postmates_base.New().Post(uri).BodyForm(params).Request()
 	if err != nil {
 		return nil, err
 	}
+
+	response := &models.Quote{}
 
 	_, err = postmates_base.Do(req, &response, err)
 	if err != nil {
@@ -79,16 +79,13 @@ type CreateDeliveryParams struct {
 func CreateDelivery(params *CreateDeliveryParams) (*models.Delivery, error) {
 
 	postmates_base := makeBaseUrl()
-
-	req, err := postmates_base.New().Post(
-		"/v1/customers/cus_LSo5Dq0t8ppZFF/deliveries").
-		BodyForm(params).Request()
+	uri := "/v1/customers/cus_LSo5Dq0t8ppZFF/deliveries"
+	req, err := postmates_base.New().Post(uri).BodyForm(params).Request()
 	if err != nil {
 		return nil, err
 	}
 
 	response := new(models.DeliveryParse)
-
 	_, err = postmates_base.Do(req, &response, err)
 	if err != nil {
 		return nil, err
@@ -103,16 +100,13 @@ func CreateDelivery(params *CreateDeliveryParams) (*models.Delivery, error) {
 func GetDelivery(id string) (*models.Delivery, error) {
 
 	postmates_base := makeBaseUrl()
-
 	uri := "/v1/customers/cus_LSo5Dq0t8ppZFF/deliveries/" + id
-
 	req, err := postmates_base.New().Get(uri).Request()
 	if err != nil {
 		return nil, err
 	}
 
 	response := new(models.DeliveryParse)
-
 	_, err = postmates_base.Do(req, &response, err)
 	if err != nil {
 		return nil, err
@@ -122,4 +116,56 @@ func GetDelivery(id string) (*models.Delivery, error) {
 	d.Parse(response)
 
 	return d, nil
+}
+
+type listResponse struct {
+	Count 			int						`json:"count"`
+	Payload			[]*models.Delivery		`json:"payload"`
+}
+
+func GetDeliveries() (*listResponse, error) {
+
+	// TODO: implement metadata in the response.. already in initial response
+
+	postmates_base := makeBaseUrl()
+	uri := "/v1/customers/cus_LSo5Dq0t8ppZFF/deliveries"
+	req, err := postmates_base.New().Get(uri).Request()
+	if err != nil {
+		return nil, err
+	}
+
+	response := new(map[string]interface{})
+	_, err = postmates_base.Do(req, &response, err)
+	if err != nil {
+		return nil, err
+	}
+
+	var payload []interface{}
+	var total_count int
+	for k, v := range(*response) {
+		if k == "data" {
+			payload = v.([]interface{})
+		} else if k == "total_count" {
+			total_count = int(v.(float64))
+		}
+	}
+
+	var deliveries_array []*models.Delivery
+	for i := range(payload) {
+		d := payload[i].(map[string]interface{})
+		dp, _ := models.ParseDeliveryParse(d)
+
+		delivery := new(models.Delivery)
+		if delivery.Parse(dp); err != nil {
+			return nil, err
+		}
+
+		deliveries_array = append(deliveries_array, delivery)
+	}
+
+	deliveries := new(listResponse)
+	deliveries.Payload = deliveries_array
+	deliveries.Count = total_count
+
+	return deliveries, nil
 }

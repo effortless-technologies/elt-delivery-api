@@ -160,3 +160,23 @@ func TestPostmatesClient_GetDelivery(t *testing.T) {
 		})
 	})
 }
+
+func TestPostmatesClient_GetDeliveries(t *testing.T) {
+
+	Convey("Given Test Deliveries", t, func() {
+
+		Convey("When retrieving those Deliveries", func() {
+
+			deliveries, err := GetDeliveries()
+			So(deliveries, ShouldNotBeNil)
+			So(err, ShouldBeNil)
+
+			Convey("Then the returned Deliveries should be in the " +
+				"correct format", func() {
+
+				So(deliveries.Count, ShouldNotBeNil)
+				So(deliveries.Payload, ShouldNotBeNil)
+			})
+		})
+	})
+}

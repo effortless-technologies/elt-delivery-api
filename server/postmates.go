@@ -65,3 +65,15 @@ func GetDelivery(c echo.Context) error {
 
 	return c.JSON(http.StatusAccepted, response)
 }
+
+func GetDeliveries(c echo.Context) error {
+
+	// TODO: refactor lack of required body var to return proper error instead of 500
+
+	response, err := clients.GetDeliveries()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusAccepted, response)
+}

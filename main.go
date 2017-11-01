@@ -8,18 +8,15 @@ import (
 )
 
 func main() {
-	// Echo instance
 	e := echo.New()
 
-	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	// Route => handler
 	e.GET("/deliveries/quote", server.GetDeliveryQuote)
 	e.POST("/deliveries/:quote_id", server.CreateDelivery)
 	e.GET("/deliveries/:delivery_id", server.GetDelivery)
+	e.GET("/deliveries", server.GetDeliveries)
 
-	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
 }

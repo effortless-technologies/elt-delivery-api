@@ -46,6 +46,54 @@ type DeliveryParse struct {
 	RelatedDeliveries	interface{}			`json:"related_deliveries,omitempty"`
 }
 
+func ParseDeliveryParse(
+	payload map[string]interface{}) (*DeliveryParse, error) {
+
+	dp := new(DeliveryParse)
+
+	for k, v := range(payload) {
+		if k == "kind" {
+			dp.Kind = v.(string)
+		} else if k == "id" && v != nil {
+			dp.Id = v.(string)
+		} else if k == "created" && v != nil {
+			dp.Created = v.(string)
+		} else if k == "updated" && v != nil {
+			dp.Updated = v.(string)
+		} else if k == "status" && v != nil {
+			dp.Status = v.(string)
+		} else if k == "complete" && v != nil {
+			dp.Complete = v.(bool)
+		} else if k == "pickup_eta" && v != nil {
+			dp.PickupEta = v.(string)
+		} else if k == "dropoff_eta" && v != nil {
+			dp.DropoffEta = v.(string)
+		} else if k == "dropoff_deadline" && v != nil {
+			dp.DropoffDeadline = v.(string)
+		} else if k == "quote_id" && v != nil {
+			dp.QuoteId = v.(string)
+		} else if k == "fee" && v != nil {
+			dp.Fee = int(v.(float64))
+		} else if k == "currency" && v != nil {
+			dp.Currency = v.(string)
+		} else if k == "manifest" && v != nil {
+			dp.Manifest = v.(interface{})
+		} else if k == "dropoff_identifer" && v != nil {
+			dp.DropoffIdentifier = v.(string)
+		} else if k == "pickup" && v != nil {
+			dp.Pickup = v.(interface{})
+		} else if k == "dropoff" && v != nil {
+			dp.Dropoff = v.(interface{})
+		} else if k == "courier" && v != nil {
+			dp.Courier = v.(interface{})
+		} else if k == "related_deliveries" && v != nil {
+			dp.RelatedDeliveries = v.(interface{})
+		}
+	}
+
+	return dp, nil
+}
+
 func (d *Delivery) Parse(dp *DeliveryParse) error {
 
 	d.Kind = dp.Kind
