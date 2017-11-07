@@ -3,6 +3,7 @@ package clients
 import (
 	"time"
 
+	"github.com/effortless-technologies/elt-delivery-api/config"
 	"github.com/effortless-technologies/elt-delivery-api/models"
 
 	"github.com/dghubble/sling"
@@ -10,14 +11,8 @@ import (
 
 const PostmatesClientTimeout = 5 * time.Second
 const PostmatesBaseUrl = "https://api.postmates.com"
-const PostmatesAPIKey = "0c55e671-dcd6-4d95-b237-abfe27952877"
 
-func Authenticate() error {
-
-	// TODO: implement
-
-	return nil
-}
+var PostmatesAPIKey string
 
 func makeBaseUrl () *sling.Sling {
 	postmates_base := sling.New().Base(
@@ -26,6 +21,18 @@ func makeBaseUrl () *sling.Sling {
 		"Accept", "application/json")
 
 	return postmates_base
+}
+
+func Authenticate() error {
+
+	// TODO: implement
+
+	return nil
+}
+
+func MakePostmatesClient(c *config.Config) {
+
+	PostmatesAPIKey = c.PostmatesAPIKey
 }
 
 func GetDeliveryQuote(

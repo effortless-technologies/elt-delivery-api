@@ -37,7 +37,7 @@ install:
 
 # TODO; implement test coverage check
 script:
-  - go test ./... -v
+  - go test ./... -tags dev -v
   - goreporter -p ./ -r ./reports -e -f text
 
 before_deploy:

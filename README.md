@@ -33,7 +33,8 @@ $ dep ensure
 
 ```
 $ cd <root/of/project>
-$ go run main.go
+$ go build -tags dev
+$ ./elt-delivery
 ```
 
 Now a server is runnning on localhost:1323:
@@ -74,7 +75,7 @@ $ curl http://localhost:1323
 To run tests locally, use the following command
 
 ```
-go test ./... -v
+go test ./... -tags dev -v
 ```
 
 ## Stage

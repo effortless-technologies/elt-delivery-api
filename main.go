@@ -1,13 +1,18 @@
 package main
 
 import (
+	"github.com/effortless-technologies/elt-delivery-api/config"
 	"github.com/effortless-technologies/elt-delivery-api/server"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"github.com/effortless-technologies/elt-delivery-api/clients"
 )
 
 func main() {
+	c := config.MakeConfig()
+	clients.MakePostmatesClient(c)
+
 	e := echo.New()
 
 	e.Use(middleware.Logger())

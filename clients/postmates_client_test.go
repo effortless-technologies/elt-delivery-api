@@ -6,7 +6,14 @@ import (
 	"github.com/effortless-technologies/elt-delivery-api/models"
 
 	. "github.com/smartystreets/goconvey/convey"
+	"github.com/effortless-technologies/elt-delivery-api/config"
 )
+
+func createClient() {
+
+	c := config.MakeConfig()
+	MakePostmatesClient(c)
+}
 
 func createTestQuote() *models.Quote {
 
@@ -52,6 +59,8 @@ func createParams(id string) *CreateDeliveryParams {
 
 func TestPostmatesClient_GetDeliveryQuote(t *testing.T) {
 
+	createClient()
+
 	Convey("Given a test Quote", t, func() {
 
 		test_quote := createTestQuote()
@@ -78,6 +87,8 @@ func TestPostmatesClient_GetDeliveryQuote(t *testing.T) {
 }
 
 func TestPostmatesClient_CreateDelivery(t *testing.T) {
+
+	createClient()
 
 	Convey("Given a test Quote and a test Delivery", t, func() {
 
@@ -113,6 +124,8 @@ func TestPostmatesClient_CreateDelivery(t *testing.T) {
 }
 
 func TestPostmatesClient_GetDelivery(t *testing.T) {
+
+	createClient()
 
 	Convey("Given a test Quote and a test Delivery", t, func() {
 
@@ -162,6 +175,8 @@ func TestPostmatesClient_GetDelivery(t *testing.T) {
 }
 
 func TestPostmatesClient_GetDeliveries(t *testing.T) {
+
+	createClient()
 
 	Convey("Given Test Deliveries", t, func() {
 
