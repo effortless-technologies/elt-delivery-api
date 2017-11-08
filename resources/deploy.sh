@@ -3,11 +3,10 @@
 set -e
 
 echo "Build Docker"
-docker build -t gcr.io/${PROJECT_NAME}/elt-delivery-api:$TRAVIS_COMMIT --build-arg DATABASE=stage .
+docker build -t gcr.io/${PROJECT_NAME}/elt-delivery-api:$TRAVIS_COMMIT --build-arg POSTMATES_ENV=prod --build-arg POSTMATES_KEY=$POSTMATES_PROD_KEY .
 docker tag gcr.io/${PROJECT_NAME}/elt-delivery-api:$TRAVIS_COMMIT gcr.io/${PROJECT_NAME}/elt-delivery-api:latest
 
 echo "Authenticate Google Cloud Engine"
-echo $GCLOUD_SERVICE_KEY
 echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
 
