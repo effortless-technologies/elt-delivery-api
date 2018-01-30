@@ -1,4 +1,4 @@
-# Effortless Connect API
+# Effortless Delivery API
 
 ## Dependencies
 
